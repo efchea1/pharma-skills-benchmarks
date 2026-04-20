@@ -24,4 +24,4 @@ If the skill uses uniform enrollment (approximately 29 patients/month constant),
 * `gsd_results.json` reports total required events in the range 300-340
 * `gsd_results.json` information fraction at the IA is computed as events-at-IA divided by total-planned-events, and is consistent with the calendar time reported (if IA is at month 22 and total events require month 36, the information fraction cannot be exactly 0.40)
 * `gsd_verification_log.md` confirms simulated power ≥ 88% using the piecewise enrollment model
-* Word report explicitly states the enrollment pattern (three-segment ramp) and its effect on IA timing — not a summary that treats enrollment as uniform
+* Word report explicitly states the enrollment pattern (three-segment ramp) and its effect on IA timing, not a summary that treats enrollment as uniform
