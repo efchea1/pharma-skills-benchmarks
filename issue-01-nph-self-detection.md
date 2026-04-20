@@ -1,3 +1,7 @@
 ## Issue 1
 **Title:**
-`[benchmark][group-sequential-design] NPH self-detection — immunotherapy context with no explicit delayed-effect signal`
+`[benchmark][group-sequential-design] NPH self-detection, immunotherapy context with no explicit delayed-effect signal`
+
+## Skills `group-sequential-design`
+
+
