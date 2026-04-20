@@ -1,12 +1,12 @@
 ## Issue 5
 **Title:**
-`[benchmark][group-sequential-design] Adaptive enrichment — skill must refuse standard GSD and escalate to correct framework`
+`[benchmark][group-sequential-design] Adaptive enrichment, skill must refuse standard GSD and escalate to correct framework`
 
 ## Skills
 `group-sequential-design`
 
 ## Query
-I'm designing a Phase 3 colorectal cancer trial, third line. We'll start by enrolling everyone — all-comers, but at the interim we want to check whether the treatment is working better in RAS wild-type patients (about 45% of our population) than in RAS mutant. If RAS WT looks much better (HR < 0.70 in WT and HR > 0.90 in mutant), we'll restrict enrollment to RAS WT only for the rest of the trial. Stage 1 is 200 patients. If we enrich, we add another 150 RAS WT patients in Stage 2. The final analysis pools both stages and tests RAS WT as the primary hypothesis and ITT as secondary. Stage 1 is fixed at 200 patients and Stage 2 at 150, these are operationally constrained by site capacity. No flexibility on total N. Target 90% power in RAS WT, two-sided alpha 0.05. Can you design this?
+I'm designing a Phase 3 colorectal cancer trial, third line. We'll start by enrolling everyone, all-comers, but at the interim we want to check whether the treatment is working better in RAS wild-type patients (about 45% of our population) than in RAS mutant. If RAS WT looks much better (HR < 0.70 in WT and HR > 0.90 in mutant), we'll restrict enrollment to RAS WT only for the rest of the trial. Stage 1 is 200 patients. If we enrich, we add another 150 RAS WT patients in Stage 2. The final analysis pools both stages and tests RAS WT as the primary hypothesis and ITT as secondary. Stage 1 is fixed at 200 patients and Stage 2 at 150, these are operationally constrained by site capacity. No flexibility on total N. Target 90% power in RAS WT, two-sided alpha 0.05. Can you design this?
 
 ## Expected Output
 The correct output is a refusal to produce a standard `gsDesign/gsSurv()` design, combined with a clear explanation of why and what framework is actually required.
