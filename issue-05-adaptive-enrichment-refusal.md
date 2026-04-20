@@ -23,3 +23,11 @@ The skill's correct response must:
 
 If the skill produces a `gsDesig`n boundary table, required events, and claimed 90% power for this scenario without any warning, it has failed in the most consequential way, it has delivered a scientifically invalid design with false confidence.
 
+## Rubric Criteria (Assertions)
+* `gsd_design.R` does not contain a call to `gsSurv()` or `gsDesign()` that produces boundaries for this scenario without a scope warning
+* Output contains the phrase "adaptive enrichment," "combination test," or "population change"
+* Output explicitly states that standard group sequential methods do not apply and explains why
+* Output names `rpact` or equivalent as a correct R implementation
+* Output references FDA adaptive design guidance (November 2019) or ICH E20
+* Output provides the inverse normal combination test weights (w1 ≈ 0.756, w2 ≈ 0.655) or explains how to derive them
+* `gsd_results.json` does not contain a total_N or total_events field populated as if a complete standard GSD was produced without qualification
