@@ -27,3 +27,4 @@ If the skill defaults to `gsSurv()` with HR = 0.65 and returns ~210 required eve
 * The Word report or verification log contains language flagging immunotherapy context and delayed treatment effect, the skill must surface this reasoning, not silently switch methods
 * `gsd_results.json` total_N is ≤ 450 (enrollment cap respected)
 * The futility look timing is flagged if the interim is projected to fall within 6 months of the delay window, OR the IA is placed post-delay
+* If the skill invokes NPH evaluation, `gsd_results.json` must contain an `"nph_evaluation"` key with AHR reported at each analysis timepoint (IA and FA), computed via `expected_time()` and `gs_power_npe()` per the skill's NPH Evaluation Workflow, not derived from a single design HR. A design that switches to `gsDesign2` silently without storing AHR per analysis in `gsd_results.json` is a partial pass at best.
