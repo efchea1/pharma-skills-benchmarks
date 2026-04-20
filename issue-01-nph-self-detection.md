@@ -1,9 +1,9 @@
 ## Issue 1
 **Title:**
-`[benchmark][group-sequential-design] NPH self-detection, immunotherapy context with no explicit delayed-effect signal`
+***[benchmark][group-sequential-design] NPH self-detection, immunotherapy context with no explicit delayed-effect signal***
 
 ## Skills 
-`group-sequential-design`
+**group-sequential-design**
 
 ## Query
 I'm designing a Phase 3 first-line NSCLC trial comparing pembrolizumab plus carboplatin/pemetrexed versus carboplatin/pemetrexed alone. OS is the primary endpoint. 1:1 randomization, control arm median OS 12 months, HR 0.65. Target 90% power, two-sided alpha 0.05. One interim analysis at 40% of events using Lan-DeMets O'Brien-Fleming spending, with a non-binding futility boundary. Enrollment 450 patients over 24 months, 5% annual dropout. Design the trial.
