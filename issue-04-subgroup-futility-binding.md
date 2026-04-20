@@ -29,3 +29,4 @@ Expected numerical output:
 * Word report or verification log explicitly states that the non-binding subgroup futility look does not inflate FWER for the ITT primary, this must be stated, not implied
 * `gsd_verification_log.md` confirms ITT FWER under global null ≤ 0.051
 * `gsd_results.json` subgroup required events is in the range 155-180 (sized independently from ITT)
+* After computing boundaries and power for both ITT and subgroup designs, `gsd_results.json` must contain an "overpowered_check" key or equivalent (per the skill's step 6b over-powered hypothesis check), specifically flagging whether the biomarker-positive subgroup design at alpha = 0.025 full recycled alpha is overpowered (power > 93% when target is 90%). If overpowered, an "alpha_reallocation_comparison" array must be present in `gsd_results.json` showing the current vs proposed reallocation. A design that is silently overpowered without this check is a failing answer
