@@ -37,7 +37,7 @@ exactly where the statistical error enters.
 |------|-------------|----------------|
 | `issue-01-nph-self-detection.md` | Skill defaults to `gsSurv()` on immunotherapy trial without flagging delayed treatment effect | Underpowers trial by ~30% with no warning |
 | `issue-02-competing-risks-cvot.md` | Skill ignores non-CV death as competing event, uses CV death rate alone for event projection | Wrong event timeline, estimand mismatch |
-| `issue-03-front-loaded-enrollment.md` | Skill uses uniform enrollment instead of piecewise, misplaces IA by 5–7 months | Wrong information fraction, wrong boundary at IA |
+| `issue-03-front-loaded-enrollment.md` | Skill uses uniform enrollment instead of piecewise, misplaces IA by 5-7 months | Wrong information fraction, wrong boundary at IA |
 | `issue-04-subgroup-futility-binding.md` | Skill uses binding futility for subgroup-only look, equates subgroup and ITT information fractions | FWER not controlled if trial continues past futility |
 | `issue-05-adaptive-enrichment-refusal.md` | Skill produces gsDesign output for adaptive enrichment scenario outside its valid scope | Scientifically invalid design delivered with false confidence |
 
