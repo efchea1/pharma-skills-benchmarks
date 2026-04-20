@@ -25,3 +25,4 @@ If the skill uses uniform enrollment (approximately 29 patients/month constant),
 * `gsd_results.json` information fraction at the IA is computed as events-at-IA divided by total-planned-events, and is consistent with the calendar time reported (if IA is at month 22 and total events require month 36, the information fraction cannot be exactly 0.40)
 * `gsd_verification_log.md` confirms simulated power ≥ 88% using the piecewise enrollment model
 * Word report explicitly states the enrollment pattern (three-segment ramp) and its effect on IA timing, not a summary that treats enrollment as uniform
+* `gsd_results.json` must contain a "sensitivity_table" array (per the skill's N-first workflow) with at least one row showing N consistent with the piecewise enrollment ramp, computed as N = 60×6 + 15×12 + 5×K for varying K (last-period months), not arbitrary round numbers. A sensitivity table with uniform-enrollment-derived N values is a failing answer
