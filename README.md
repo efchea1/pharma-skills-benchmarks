@@ -13,8 +13,7 @@ and lrstat to design clinical trials, verify via simulation, and
 generate Word reports.
 
 This repo contains five benchmark test cases submitted as GitHub issues 
-to the upstream project. Each benchmark targets a **silent failure mode** 
-— a scenario where the skill produces clean, professional, numerically 
+to the upstream project. Each benchmark targets a **silent failure mode**, a scenario where the skill produces clean, professional, numerically 
 plausible output that is statistically wrong in a way a non-expert 
 would not detect.
 
