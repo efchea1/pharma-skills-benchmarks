@@ -1,1 +1,31 @@
+## Issue 4
+**Title:**
+`[benchmark][group-sequential-design] Subgroup futility interim — binding vs non-binding accounting and subgroup-specific information fraction`
 
+## Skills
+`group-sequential-design`
+
+## Query
+I'm designing a Phase 3 trial with a nested subgroup structure. Primary endpoint is OS in all patients (ITT). We also have a biomarker-positive subgroup that makes up about 40% of the ITT population, and we want to test OS in that subgroup as a key secondary. HR assumptions: ITT 0.78, biomarker-positive 0.65. Control arm median OS: 18 months ITT, 15 months biomarker-positive. 1:1 randomization, 600 patients over 30 months, two-sided alpha 0.05, O'Brien-Fleming spending. For the ITT primary: one efficacy interim at 50% of ITT events. For the biomarker subgroup: we want a futility-only look at calendar month 18 — if there's no signal at all in the subgroup we want the option to stop subgroup development, using a one-sided futility boundary at z = 0.5. Final subgroup analysis happens at the same time as the ITT final. Design both and make sure the family-wise error rate is controlled.
+
+## Expected Output
+This benchmark does not test whether the skill can generate a nested subgroup design, it already can. It tests two specific correctnesses that are invisible in formatted output and will not be caught without examining the underlying R code and `gsd_results.json`:
+
+**First:** The subgroup futility look must be implemented as non-binding (`test.type = 4` in `gsDesign`, or equivalent). If binding futility (`test.type = 1`) is used, the FWER for the ITT primary is inflated if the trial continues after the futility boundary is crossed. The skill will almost certainly produce a design that looks correct, two separate design objects, spending functions, a boundary table, whether `test.type` is 1 or 4. The error is invisible in the report.
+
+**Second:** The subgroup information fraction at calendar month 18 must be computed from subgroup-specific events, not ITT events. At month 18, with 600 patients enrolled over 30 months and ITT median OS of 18 months, approximately 180 ITT events are expected (≈40% of ~450 required). The biomarker-positive subgroup has 40% prevalence, so approximately 72 subgroup events at month 18. The subgroup requires approximately 165–180 events total. Therefore the subgroup information fraction at month 18 is approximately 72/170 ≈ 0.42, not 0.40 (the ITT fraction at that same time). These two fractions are different and must be reported separately. A skill that sets both to 0.40 or uses ITT events to compute subgroup information fraction is wrong.
+
+Expected numerical output:
+* ITT: required events ~440-460, OBF boundary at 50% IA: z ≈ 2.96, final: z ≈ 1.97
+* Subgroup: required events ~160-175, futility boundary at ~42% information: z ≤ 0.5
+* lrstat confirms subgroup events at month 18: 70-75
+* FWER under global null ≤ 0.051
+
+## Rubric Criteria (Assertions)
+* `gsd_design.R` creates two separate `gsDesign` objects, one for ITT, one for biomarker subgroup, not a single combined object
+* `gsd_design.R` uses `test.type = 4` (non-binding futility) for the subgroup design object, `test.type = 1` is a failing answer
+* `gsd_results.json` reports ITT information fraction and subgroup information fraction at calendar month 18 as separate values, and they are not equal (subgroup fraction ≈ 0.42-0.46, ITT fraction ≈ 0.38-0.42, they differ)
+* `gsd_results.json` reports subgroup events at calendar month 18 in the range 68-78 (consistent with 40% prevalence and the enrollment/failure rate assumptions)
+* Word report or verification log explicitly states that the non-binding subgroup futility look does not inflate FWER for the ITT primary, this must be stated, not implied
+* `gsd_verification_log.md` confirms ITT FWER under global null ≤ 0.051
+* `gsd_results.json` subgroup required events is in the range 155-180 (sized independently from ITT)
