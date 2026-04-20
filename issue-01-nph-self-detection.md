@@ -13,7 +13,7 @@ The skill should recognize that pembrolizumab is a PD-1 checkpoint inhibitor, th
 1. Flag the immunotherapy context and note that a delayed treatment effect of 3-6 months is typical in this setting
 2. Invoke `gsDesign2::gs_design_ahr()` with a piecewise failure rate (`duration = c(4, Inf), hr = c(1.0, 0.65)`) rather than defaulting to `gsDesign::gsSurv()` with a single HR
 3. Report the average hazard ratio (AHR) at each analysis time rather than a single fixed HR
-4. Require meaningfully more events than the Schoenfeld approximation under PH with HR = 0.65 (which gives ~210–220 events)
+4. Require meaningfully more events than the Schoenfeld approximation under PH with HR = 0.65 (which gives ~210-220 events)
 5. Flag that the futility boundary at 40% information is unreliable if that interim falls within or near the delay window, and either adjust the IA timing or warn explicitly
 6. Simulation via `lrstat::lrsim()` or `gsDesign2` simulation confirms actual power ≥ 88%
 
