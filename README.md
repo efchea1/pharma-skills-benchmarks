@@ -49,9 +49,9 @@ version 2c0eaec.
 
 | Issue | With Skill | Without Skill | Finding |
 |-------|-----------|---------------|---------|
-| [#36 Adaptive enrichment](https://github.com/RConsortium/pharma-skills/issues/36) | 0% | 57% | Critical — skill produced scientifically invalid design without warning |
-| [#37 NPH self-detection](https://github.com/RConsortium/pharma-skills/issues/37) | 25% | 13% | Domain knowledge gap — both agents missed immunotherapy delayed-effect context |
-| [#38 Front-loaded enrollment](https://github.com/RConsortium/pharma-skills/issues/38) | 71% | 7% | Skill wins — piecewise enrollment correctly implemented, IA at 14.9 months |
+| [#36 Adaptive enrichment](https://github.com/RConsortium/pharma-skills/issues/36) | 0% | 57% | Critical: skill produced scientifically invalid design without warning |
+| [#37 NPH self-detection](https://github.com/RConsortium/pharma-skills/issues/37) | 25% | 13% | Domain knowledge gap: both agents missed immunotherapy delayed-effect context |
+| [#38 Front-loaded enrollment](https://github.com/RConsortium/pharma-skills/issues/38) | 71% | 7% | Skill wins: piecewise enrollment correctly implemented, IA at 14.9 months |
 | [#39 Competing risks](https://github.com/RConsortium/pharma-skills/issues/39) | 31% | 13% | Both agents treated non-CV death as independent censoring |
 | [#40 Subgroup futility](https://github.com/RConsortium/pharma-skills/issues/40) | 6% | 75% | Skill used binding futility, base model correctly used non-binding |
 
