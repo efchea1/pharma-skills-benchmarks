@@ -41,11 +41,32 @@ exactly where the statistical error enters.
 | `issue-02-competing-risks-cvot.md` | Skill ignores non-CV death as competing event, uses CV death rate alone for event projection | Wrong event timeline, estimand mismatch | [RConsortium #39](https://github.com/RConsortium/pharma-skills/issues/39) |
 | `issue-04-subgroup-futility-binding.md` | Skill uses binding futility for subgroup-only look, equates subgroup and ITT information fractions | FWER not controlled if trial continues past futility | [RConsortium #40](https://github.com/RConsortium/pharma-skills/issues/40) |
 
+## Benchmark results
+
+All five issues were evaluated by the automated pipeline on 
+April 21, 2026 using gemini-3-flash-preview against skill 
+version 2c0eaec.
+
+| Issue | With Skill | Without Skill | Finding |
+|-------|-----------|---------------|---------|
+| [#36 Adaptive enrichment](https://github.com/RConsortium/pharma-skills/issues/36) | 0% | 57% | Critical — skill produced scientifically invalid design without warning |
+| [#37 NPH self-detection](https://github.com/RConsortium/pharma-skills/issues/37) | 25% | 13% | Domain knowledge gap — both agents missed immunotherapy delayed-effect context |
+| [#38 Front-loaded enrollment](https://github.com/RConsortium/pharma-skills/issues/38) | 71% | 7% | Skill wins — piecewise enrollment correctly implemented, IA at 14.9 months |
+| [#39 Competing risks](https://github.com/RConsortium/pharma-skills/issues/39) | 31% | 13% | Both agents treated non-CV death as independent censoring |
+| [#40 Subgroup futility](https://github.com/RConsortium/pharma-skills/issues/40) | 6% | 75% | Skill used binding futility, base model correctly used non-binding |
+
 ## Upstream submissions
 
 All five issues were filed at 
 [RConsortium/pharma-skills/issues](https://github.com/RConsortium/pharma-skills/issues) 
 on April 19, 2026.
+
+## Recognition
+
+Acknowledged by project lead Yilong Zhang (Health Quantitative Scientist, Meta): *"Much appreciate the contributions! Eval results 
+are under the way."*
+
+Invited to join the RConsortium Pharma Skills core team Slack channel following benchmark evaluation results, April 2026.
 
 ## Author
 
@@ -54,3 +75,6 @@ Founder & CEO, Lexify | Clinical Data Scientist | Healthcare AI
 [github.com/efchea1](https://github.com/efchea1) · 
 [lexify.health](https://lexify.health) · 
 [LinkedIn](https://linkedin.com/in/emmanuel-fle-chea)
+
+## License
+MIT License - see [LICENSE](LICENSE) for details.
