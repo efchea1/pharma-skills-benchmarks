@@ -66,8 +66,8 @@ Motivated by Jeff Dickinson's pharmaverse blog post, ["Why we still need {admira
 | [#167](https://github.com/RConsortium/pharma-skills/issues/167) | 77% / 65.9%** | 59% / 63.6%** | `{admiralonco}` availability in the runtime swings results significantly, see infra issue **#186** |
 | [#169](https://github.com/RConsortium/pharma-skills/issues/169) | 81.8% | 72.7% | Both agents independently derived the correct correlation-aware α* ≈ 0.0188, more refined than this benchmark's original expected Bonferroni value |
 
-\* Rerun against the PR #187 fix branch; PPROTFL assertion improved Fail → Partial (Agent A now uses `derive_vars_merged()` but pre-filters rather than using inline `filter_add`).  
-\*\* Two independent runs (jeffreyad, then ttt-77) produced different margins depending on whether `{admiralonco}` happened to be installed in that run's environment; see [#186](https://github.com/RConsortium/pharma-skills/issues/186).
+\ Rerun against the PR #187 fix branch; PPROTFL assertion improved Fail → Partial (Agent A now uses `derive_vars_merged()` but pre-filters rather than using inline `filter_add`).  
+\\ Two independent runs (jeffreyad, then ttt-77) produced different margins depending on whether `{admiralonco}` happened to be installed in that run's environment; see [#186](https://github.com/RConsortium/pharma-skills/issues/186).
 
 **Issue #165 → PR #187:** Reading the admiral-adsl SKILL.md source directly showed the PPROTFL guidance was never implemented, only a commented-out stub referencing a placeholder variable that was never connected to any real data source. PR #187 implemented it using `derive_vars_merged()` with `filter_add` (an exclusion-flag pattern, distinct from SAFFL's inclusion-flag `derive_var_merged_exist_flag()`), added a `stop()` guard distinguishing "DV domain absent" from "DV present with zero major deviations," and was merged after a review round addressing SAS XPT 8-character variable-name compliance.
 
