@@ -43,7 +43,7 @@ Evaluated April 21, 2026 using gemini-3-flash-preview against skill version 2c0e
 | [#39 Competing risks](https://github.com/RConsortium/pharma-skills/issues/39) | 31% | 13% | Both agents treated non-CV death as independent censoring |
 | [#40 Subgroup futility](https://github.com/RConsortium/pharma-skills/issues/40) | 6% | 75% | Skill used binding futility, base model correctly used non-binding |
 
-The 25% → 100% gap between gemini-3-flash-preview and Claude Opus 4.7 on Issue #37 confirmed that NPH self-detection is a **capability-dependent behavior** — the clinical domain knowledge exists in more capable models but is not reliably triggered by the skill in smaller ones. Agent A's 390-event design vs Agent B's 229-event design under Opus 4.7 is not a small numerical difference: it is the difference between a trial that hits 89% power and one that delivers 28% power under a realistic 6-month delay.
+The 25% → 100% gap between gemini-3-flash-preview and Claude Opus 4.7 on Issue #37 confirmed that NPH self-detection is a **capability-dependent behavior**, the clinical domain knowledge exists in more capable models but is not reliably triggered by the skill in smaller ones. Agent A's 390-event design vs Agent B's 229-event design under Opus 4.7 is not a small numerical difference: it is the difference between a trial that hits 89% power and one that delivers 28% power under a realistic 6-month delay.
 
 ## Wave 2 - admiral & clinical-trial-simulation expansion (Issues #165-169, June 2026)
 
@@ -51,20 +51,20 @@ Motivated by Jeff Dickinson's pharmaverse blog post, ["Why we still need {admira
 
 | Issue | Skill | Failure mode tested |
 |-------|-------|---------------------|
-| [#165](https://github.com/RConsortium/pharma-skills/issues/165) | admiral-adsl | SAFFL/ITTFL/PPROTFL population flags — "N" instead of NA for screen failures; SAFFL derived from `!is.na(TRTSDT)` instead of confirmed dosing |
-| [#166](https://github.com/RConsortium/pharma-skills/issues/166) | admiral-bds | ADTTE time-to-event — manual date arithmetic silently fails to populate CNSR/CNSDTDSC/EVNTDESC correctly |
-| [#167](https://github.com/RConsortium/pharma-skills/issues/167) | admiral-bds | ADRS/RECIST 1.1 tumor response — confirmation logic silently bypassed, inflating confirmed ORR |
-| [#168](https://github.com/RConsortium/pharma-skills/issues/168) | clinical-trial-simulation | Bayesian adaptive dose-finding — frequentist decision logic masquerading as Bayesian posterior probability |
-| [#169](https://github.com/RConsortium/pharma-skills/issues/169) | group-sequential-design | Platform trial with shared control arm — multiplicity inflation from concurrent sub-trial comparisons |
+| [#165](https://github.com/RConsortium/pharma-skills/issues/165) | admiral-adsl | SAFFL/ITTFL/PPROTFL population flags, "N" instead of NA for screen failures; SAFFL derived from `!is.na(TRTSDT)` instead of confirmed dosing |
+| [#166](https://github.com/RConsortium/pharma-skills/issues/166) | admiral-bds | ADTTE time-to-event, manual date arithmetic silently fails to populate CNSR/CNSDTDSC/EVNTDESC correctly |
+| [#167](https://github.com/RConsortium/pharma-skills/issues/167) | admiral-bds | ADRS/RECIST 1.1 tumor response, confirmation logic silently bypassed, inflating confirmed ORR |
+| [#168](https://github.com/RConsortium/pharma-skills/issues/168) | clinical-trial-simulation | Bayesian adaptive dose-finding, frequentist decision logic masquerading as Bayesian posterior probability |
+| [#169](https://github.com/RConsortium/pharma-skills/issues/169) | group-sequential-design | Platform trial with shared control arm, multiplicity inflation from concurrent sub-trial comparisons |
 
 ### Wave 2 results
 
 | Issue | With Skill | Without Skill | Finding |
 |-------|-----------|---------------|---------|
-| [#165](https://github.com/RConsortium/pharma-skills/issues/165) | 82.6% → 80.4%* | 45.7% → 43.5%* | PPROTFL was dead commented-out code in SKILL.md — fixed in **PR #187** |
-| [#166](https://github.com/RConsortium/pharma-skills/issues/166) | 84.1% | 65.9% | Unskilled agent independently converged on `derive_param_tte()` — skill's value is structural discipline (DOMAIN removal, date idioms, QC annotation), not function selection |
-| [#167](https://github.com/RConsortium/pharma-skills/issues/167) | 77% / 65.9%** | 59% / 63.6%** | `{admiralonco}` availability in the runtime swings results significantly — see infra issue **#186** |
-| [#169](https://github.com/RConsortium/pharma-skills/issues/169) | 81.8% | 72.7% | Both agents independently derived the correct correlation-aware α* ≈ 0.0188 — more refined than this benchmark's original expected Bonferroni value |
+| [#165](https://github.com/RConsortium/pharma-skills/issues/165) | 82.6% → 80.4%* | 45.7% → 43.5%* | PPROTFL was dead commented-out code in SKILL.md, fixed in **PR #187** |
+| [#166](https://github.com/RConsortium/pharma-skills/issues/166) | 84.1% | 65.9% | Unskilled agent independently converged on `derive_param_tte()`, skill's value is structural discipline (DOMAIN removal, date idioms, QC annotation), not function selection |
+| [#167](https://github.com/RConsortium/pharma-skills/issues/167) | 77% / 65.9%** | 59% / 63.6%** | `{admiralonco}` availability in the runtime swings results significantly, see infra issue **#186** |
+| [#169](https://github.com/RConsortium/pharma-skills/issues/169) | 81.8% | 72.7% | Both agents independently derived the correct correlation-aware α* ≈ 0.0188, more refined than this benchmark's original expected Bonferroni value |
 
 \* Rerun against the PR #187 fix branch; PPROTFL assertion improved Fail → Partial (Agent A now uses `derive_vars_merged()` but pre-filters rather than using inline `filter_add`).  
 \*\* Two independent runs (jeffreyad, then ttt-77) produced different margins depending on whether `{admiralonco}` happened to be installed in that run's environment; see [#186](https://github.com/RConsortium/pharma-skills/issues/186).
@@ -111,11 +111,11 @@ advantage either way. Root-cause investigation (whether the skill's calibrated r
 
 Across waves 2 and 3, several of my own benchmark assertions turned out to be miscalibrated rather than the skill being wrong, and I've tried to be transparent about that rather than only reporting wins:
 
-- **#165** — "PPROTFL count ≤ SAFFL count" is structurally false under the stated flag definitions (Placebo subjects can qualify for PPROTFL without qualifying for SAFFL); rescoped rather than treated as a skill 
+- **#165**: "PPROTFL count ≤ SAFFL count" is structurally false under the stated flag definitions (Placebo subjects can qualify for PPROTFL without qualifying for SAFFL); rescoped rather than treated as a skill 
   failure.
-- **#166** — "nrow(adtte) == nrow(adsl)" failed for both agents because `derive_param_tte()` correctly excludes screen failures and subjects with incomplete treatment dates by design, not by error.
-- **#167** — the CBRESPFL "Y"/NA-only assertion was wrong; `derive_param_clinbenefit()`'s output is explicitly binary "Y"/"N", and both agents producing "N" was correct admiralonco behavior.
-- **#169** — the benchmark's own expected Bonferroni value (≈0.0083) was more conservative than necessary; both agents correctly produced a more statistically refined, less conservative, still-valid correlation-aware answer (≈0.0188).
+- **#166**: "nrow(adtte) == nrow(adsl)" failed for both agents because `derive_param_tte()` correctly excludes screen failures and subjects with incomplete treatment dates by design, not by error.
+- **#167**: the CBRESPFL "Y"/NA-only assertion was wrong; `derive_param_clinbenefit()`'s output is explicitly binary "Y"/"N", and both agents producing "N" was correct admiralonco behavior.
+- **#169**: the benchmark's own expected Bonferroni value (≈0.0083) was more conservative than necessary; both agents correctly produced a more statistically refined, less conservative, still-valid correlation-aware answer (≈0.0188).
 
 This pattern, repeatedly assuming 1:1 structural parity with ADSL where the actual admiral function has principled exclusion logic, is itself a useful finding about benchmark design, not just about the skill.
 
