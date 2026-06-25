@@ -7,7 +7,7 @@ Statistical correctness benchmarks for the RConsortium
 
 ## What this is
 
-The pharma-skills project is an open-source collection of AI agent skills for pharmaceutical statisticians, built by the R Consortium and BBSW. Skills wrap trusted R packages, `gsDesign`, `gsDesign2`, `lrstat`, `{admiral}`/`{admiralonco}`, `r2rtf`, with curated guidance so an AI agent calls the correct idiomatic function instead of reimplementing clinical trial statistics from scratch.
+The pharma-skills project is an open-source collection of AI agent skills for pharmaceutical statisticians, built by the R Consortium and BBSW. Skills wrap trusted R packages, `gsDesign`, `gsDesign2`, `lrstat`, `{admiral}`, `{admiralonco}`, `r2rtf`, with curated guidance so an AI agent calls the correct idiomatic function instead of reimplementing clinical trial statistics from scratch.
 
 This repo documents 20 benchmark test cases submitted as GitHub issues to the upstream project, each one a **silent failure mode**: a scenario where the skill produces clean, professional, numerically plausible output that is statistically or structurally wrong in a way a non-expert would not detect.
 
