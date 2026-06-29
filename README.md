@@ -20,7 +20,7 @@ A benchmark earns its place here if it satisfies all three criteria:
 
 These are harder to write than complexity benchmarks (co-primary endpoints, alpha recycling, multi-region timelines) because the failure is invisible in the formatted report. They require knowing specifically which R function the skill will call, what default behavior that function has, and exactly where the statistical error enters.
 
-## Wave 1 — group-sequential-design (Issues #36-40, April 2026)
+## Wave 1 - group-sequential-design (Issues #36-40, April 2026)
 
 | File | Failure mode | Why it matters | Upstream issue |
 |------|-------------|----------------|---------------|
@@ -52,24 +52,24 @@ Motivated by Jeff Dickinson's pharmaverse blog post,
 
 | Issue | Skill | Failure mode tested |
 |-------|-------|---------------------|
-| [#165](https://github.com/RConsortium/pharma-skills/issues/165) | admiral-adsl | SAFFL/ITTFL/PPROTFL population flags — "N" instead of NA for screen failures; SAFFL derived from `!is.na(TRTSDT)` instead of confirmed dosing |
-| [#166](https://github.com/RConsortium/pharma-skills/issues/166) | admiral-bds | ADTTE time-to-event — manual date arithmetic silently fails to populate CNSR/CNSDTDSC/EVNTDESC correctly |
-| [#167](https://github.com/RConsortium/pharma-skills/issues/167) | admiral-bds | ADRS/RECIST 1.1 tumor response — confirmation logic silently bypassed, inflating confirmed ORR |
-| [#168](https://github.com/RConsortium/pharma-skills/issues/168) | clinical-trial-simulation | Bayesian adaptive dose-finding — frequentist decision logic masquerading as Bayesian posterior probability |
-| [#169](https://github.com/RConsortium/pharma-skills/issues/169) | group-sequential-design | Platform trial with shared control arm — multiplicity inflation from concurrent sub-trial comparisons |
+| [#165](https://github.com/RConsortium/pharma-skills/issues/165) | admiral-adsl | SAFFL/ITTFL/PPROTFL population flags, "N" instead of NA for screen failures; SAFFL derived from `!is.na(TRTSDT)` instead of confirmed dosing |
+| [#166](https://github.com/RConsortium/pharma-skills/issues/166) | admiral-bds | ADTTE time-to-event, manual date arithmetic silently fails to populate CNSR/CNSDTDSC/EVNTDESC correctly |
+| [#167](https://github.com/RConsortium/pharma-skills/issues/167) | admiral-bds | ADRS/RECIST 1.1 tumor response, confirmation logic silently bypassed, inflating confirmed ORR |
+| [#168](https://github.com/RConsortium/pharma-skills/issues/168) | clinical-trial-simulation | Bayesian adaptive dose-finding, frequentist decision logic masquerading as Bayesian posterior probability |
+| [#169](https://github.com/RConsortium/pharma-skills/issues/169) | group-sequential-design | Platform trial with shared control arm, multiplicity inflation from concurrent sub-trial comparisons |
 
 ### Wave 2 results
 
 | Issue | With Skill | Without Skill | Finding |
 |-------|-----------|---------------|---------|
-| [#165](https://github.com/RConsortium/pharma-skills/issues/165) | 82.6%* | 45.7%* | PPROTFL was dead commented-out code in SKILL.md — fixed in **PR #187**; PPROTFL assertion specifically confirmed Fail → Partial → **Pass** across 3 reruns** |
+| [#165](https://github.com/RConsortium/pharma-skills/issues/165) | 82.6%* | 45.7%* | PPROTFL was dead commented-out code in SKILL.md, fixed in **PR #187**; PPROTFL assertion specifically confirmed Fail → Partial → **Pass** across 3 reruns** |
 | [#166](https://github.com/RConsortium/pharma-skills/issues/166) | 84.1% | 65.9% | Unskilled agent independently converged on `derive_param_tte()`, skill's value is structural discipline (DOMAIN removal, date idioms, QC annotation), not function selection |
-| [#167](https://github.com/RConsortium/pharma-skills/issues/167) | 77% / 65.9%*** | 59% / 63.6%*** | `{admiralonco}` availability in the runtime swings results significantly — see infra issue **#186** |
+| [#167](https://github.com/RConsortium/pharma-skills/issues/167) | 77% / 65.9%*** | 59% / 63.6%*** | `{admiralonco}` availability in the runtime swings results significantly, see infra issue **#186** |
 | [#169](https://github.com/RConsortium/pharma-skills/issues/169) | 81.8% | 72.7% | Both agents independently derived the correct correlation-aware α* ≈ 0.0188, more refined than this benchmark's original expected Bonferroni value |
 
 \* Original benchmark scores at time of submission (before the PR #187 fix existed).  
-\*\* Three independent reruns against the PR #187 fix branch used varying assertion subsets (23, then 23, then 18 — likely different eval-runner configurations), so raw scores aren't directly comparable across runs. The PPROTFL `derive_vars_merged()` assertion itself was tracked consistently and is the cleanest signal: Fail (pre-fix) → Partial (pre-filtered, not inline `filter_add`) → **Pass** (inline `filter_add`, exactly the documented idiom).  
-\*\*\* Two independent runs (jeffreyad, then ttt-77) produced different margins depending on whether `{admiralonco}` happened to be installed in that run's environment — see [#186](https://github.com/RConsortium/pharma-skills/issues/186).
+\*\* Three independent reruns against the PR #187 fix branch used varying assertion subsets (23, then 23, then 18, likely different eval-runner configurations), so raw scores aren't directly comparable across runs. The PPROTFL `derive_vars_merged()` assertion itself was tracked consistently and is the cleanest signal: Fail (pre-fix) → Partial (pre-filtered, not inline `filter_add`) → **Pass** (inline `filter_add`, exactly the documented idiom).  
+\*\*\* Two independent runs (jeffreyad, then ttt-77) produced different margins depending on whether `{admiralonco}` happened to be installed in that run's environment; see [#186](https://github.com/RConsortium/pharma-skills/issues/186).
 
 **Issue #165 → PR #187:** Reading the admiral-adsl SKILL.md source directly showed the PPROTFL guidance was never implemented, only a commented-out stub referencing a placeholder variable that was never connected to any real data source. PR #187 implemented it using `derive_vars_merged()` with `filter_add` (an exclusion-flag pattern, distinct from SAFFL's inclusion-flag `derive_var_merged_exist_flag()`), added a `stop()` guard distinguishing "DV domain absent" from "DV present with zero major deviations," and was merged after a review round addressing SAS XPT 8-character variable-name compliance.
 
@@ -80,9 +80,9 @@ Motivated by Jeff Dickinson's pharmaverse blog post,
 | Issue | Skill | Failure mode tested |
 |-------|-------|---------------------|
 | [#171](https://github.com/RConsortium/pharma-skills/issues/171) | group-sequential-design | Conditional power / predictive probability of success computed at the wrong information fraction for DMC decision support |
-| [#172](https://github.com/RConsortium/pharma-skills/issues/172) | admiral-bds | ADPX pharmacokinetics — AUC/Cmax/Tmax with BLQ imputation and linear-up/log-down trapezoidal rule |
+| [#172](https://github.com/RConsortium/pharma-skills/issues/172) | admiral-bds | ADPX pharmacokinetics, AUC/Cmax/Tmax with BLQ imputation and linear-up/log-down trapezoidal rule |
 | [#173](https://github.com/RConsortium/pharma-skills/issues/173) | clinical-trial-simulation | Sample size re-estimation at interim, blinded internal pilot (Wittes-Brittain) without type I error inflation |
-| [#174](https://github.com/RConsortium/pharma-skills/issues/174) | r2rtf | Kaplan-Meier survival table — median CI method, number-at-risk integers, censoring annotation |
+| [#174](https://github.com/RConsortium/pharma-skills/issues/174) | r2rtf | Kaplan-Meier survival table, median CI method, number-at-risk integers, censoring annotation |
 | [#175](https://github.com/RConsortium/pharma-skills/issues/175) | group-sequential-design | Non-inferiority margin justification via the M1/M2 framework and assay sensitivity |
 
 Results pending: evaluation pipeline still processing this wave as of the last update to this README. #171's first run is the one exception: an instructive **negative result** is already in, see below.
@@ -109,7 +109,7 @@ advantage either way. Root-cause investigation (whether the skill's calibrated r
 
 [**#186**](https://github.com/RConsortium/pharma-skills/issues/186), `{admiralonco}` is not consistently installed in the benchmark runtime, which has produced materially different results across repeat runs of the same oncology benchmark (#167) depending on which agent happened to have the package available.
 
-A second independent run confirmed the asymmetry in reverse: in the first run, the skilled agent lacked `{admiralonco}` and fell back to manual base-`{admiral}` reimplementation; in the second run, it was the *unskilled* agent that successfully self-installed the package from CRAN and used the full idiomatic function suite, while the skilled agent again fell back to manual derivation. Across both runs, no agent — skilled or unskilled, has yet attempted `install.packages("admiralonco")` as part of the *skilled* workflow itself, despite the unskilled agent demonstrating twice that this is a viable, low-effort fix. Proposed as a SKILL.md addition: attempt package installation before falling back to manual implementation when `{admiralonco}` is absent.
+A second independent run confirmed the asymmetry in reverse: in the first run, the skilled agent lacked `{admiralonco}` and fell back to manual base-`{admiral}` reimplementation; in the second run, it was the *unskilled* agent that successfully self-installed the package from CRAN and used the full idiomatic function suite, while the skilled agent again fell back to manual derivation. Across both runs, no agent, skilled or unskilled, has yet attempted `install.packages("admiralonco")` as part of the *skilled* workflow itself, despite the unskilled agent demonstrating twice that this is a viable, low-effort fix. Proposed as a SKILL.md addition: attempt package installation before falling back to manual implementation when `{admiralonco}` is absent.
 
 ## Methodology note: self-correcting benchmark design
 
@@ -125,7 +125,7 @@ This pattern, repeatedly assuming 1:1 structural parity with ADSL where the actu
 
 ## Cross-project contributions
 
-Beyond the 20 benchmark cases authored directly, contributed analytical synthesis on [**#183**](https://github.com/RConsortium/pharma-skills/issues/183) (`clinical-trial-ipd-sim` feedback cluster, #179–184, authored by lengning), identifying a shared root cause across three separate issues — AE onset timing (#182), visit timing (#183), and discontinuation timing, all stemming from the same architectural pattern: the forward simulation evaluates state only at discrete visit timepoints when the underlying clinical process is continuous-time. Proposed a single shared spec pattern (continuous-time event sampling within visit windows) rather than three separate fixes, connecting it to the same discrete-grid-vs-continuous-time tension seen in the ADTTE (#166) and conditional-power (#171) benchmarks above.
+Beyond the 20 benchmark cases authored directly, contributed analytical synthesis on [**#183**](https://github.com/RConsortium/pharma-skills/issues/183) (`clinical-trial-ipd-sim` feedback cluster, #179–184, authored by lengning), identifying a shared root cause across three separate issues, AE onset timing (#182), visit timing (#183), and discontinuation timing, all stemming from the same architectural pattern: the forward simulation evaluates state only at discrete visit timepoints when the underlying clinical process is continuous-time. Proposed a single shared spec pattern (continuous-time event sampling within visit windows) rather than three separate fixes, connecting it to the same discrete-grid-vs-continuous-time tension seen in the ADTTE (#166) and conditional-power (#171) benchmarks above.
 
 ## Upstream submissions
 
@@ -137,7 +137,7 @@ All filed at [RConsortium/pharma-skills/issues](https://github.com/RConsortium/p
 
 ## Recognition
 
-Acknowledged by project lead Yilong Zhang (Health Quantitative Scientist, Meta): *"Much appreciate the contributions! Eval results are under the way."* — and later, in response to wave 2: *"Wish we can have more benchmark data to support the findings."*
+Acknowledged by project lead Yilong Zhang (Health Quantitative Scientist, Meta): *"Much appreciate the contributions! Eval results are under the way."*, and later, in response to wave 2: *"Wish we can have more benchmark data to support the findings."*
 
 Merged contributor with repo access; invited to the RConsortium Pharma Skills core team Slack channel and weekly Pilot 7 standups following benchmark evaluation results, April 2026.
 
