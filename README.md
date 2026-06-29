@@ -125,7 +125,7 @@ This pattern, repeatedly assuming 1:1 structural parity with ADSL where the actu
 
 ## Cross-project contributions
 
-Beyond the 20 benchmark cases authored directly, contributed analytical synthesis on [**#183**](https://github.com/RConsortium/pharma-skills/issues/183) (`clinical-trial-ipd-sim` feedback cluster, #179–184, authored by lengning), identifying a shared root cause across three separate issues, AE onset timing (#182), visit timing (#183), and discontinuation timing, all stemming from the same architectural pattern: the forward simulation evaluates state only at discrete visit timepoints when the underlying clinical process is continuous-time. Proposed a single shared spec pattern (continuous-time event sampling within visit windows) rather than three separate fixes, connecting it to the same discrete-grid-vs-continuous-time tension seen in the ADTTE (#166) and conditional-power (#171) benchmarks above.
+Beyond the 20 benchmark cases authored directly, contributed analytical synthesis on [**#183**](https://github.com/RConsortium/pharma-skills/issues/183) (`clinical-trial-ipd-sim` feedback cluster, #179-184, authored by lengning), identifying a shared root cause across three separate issues, AE onset timing (#182), visit timing (#183), and discontinuation timing, all stemming from the same architectural pattern: the forward simulation evaluates state only at discrete visit timepoints when the underlying clinical process is continuous-time. Proposed a single shared spec pattern (continuous-time event sampling within visit windows) rather than three separate fixes, connecting it to the same discrete-grid-vs-continuous-time tension seen in the ADTTE (#166) and conditional-power (#171) benchmarks above.
 
 ## Upstream submissions
 
