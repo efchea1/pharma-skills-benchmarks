@@ -2,13 +2,13 @@
 
 Statistical correctness benchmarks for the RConsortium [pharma-skills](https://github.com/RConsortium/pharma-skills) project, covering the **group-sequentialdesign**, **admiral-adsl**, **admiral-bds**, **clinical-trial-simulation**, and **r2rtf** AI agent skills.
 
-20 benchmark cases submitted upstream · 2 merged pull requests fixing gaps the benchmarks exposed · 1 open infrastructure issue.
+15 benchmark cases submitted upstream · 2 merged pull requests fixing gaps the benchmarks exposed · 1 open infrastructure issue.
 
 ## What this is
 
 The pharma-skills project is an open-source collection of AI agent skills for pharmaceutical statisticians, built by the R Consortium and BBSW. Skills wrap trusted R packages, `gsDesign`, `gsDesign2`, `lrstat`, `{admiral}`/`{admiralonco}`, `r2rtf`, with curated guidance so an AI agent calls the correct idiomatic function instead of reimplementing clinical trial statistics from scratch.
 
-This repo documents 20 benchmark test cases submitted as GitHub issues to the upstream project, each one a **silent failure mode**: a scenario where the skill produces clean, professional, numerically plausible output that is statistically or structurally wrong in a way a non-expert would not detect.
+This repo documents 15 benchmark test cases submitted as GitHub issues to the upstream project, each one a **silent failure mode**: a scenario where the skill produces clean, professional, numerically plausible output that is statistically or structurally wrong in a way a non-expert would not detect.
 
 ## Curation logic
 
@@ -125,7 +125,7 @@ This pattern, repeatedly assuming 1:1 structural parity with ADSL where the actu
 
 ## Cross-project contributions
 
-Beyond the 20 benchmark cases authored directly, contributed analytical synthesis on [**#183**](https://github.com/RConsortium/pharma-skills/issues/183) (`clinical-trial-ipd-sim` feedback cluster, #179-184, authored by lengning), identifying a shared root cause across three separate issues, AE onset timing (#182), visit timing (#183), and discontinuation timing, all stemming from the same architectural pattern: the forward simulation evaluates state only at discrete visit timepoints when the underlying clinical process is continuous-time. Proposed a single shared spec pattern (continuous-time event sampling within visit windows) rather than three separate fixes, connecting it to the same discrete-grid-vs-continuous-time tension seen in the ADTTE (#166) and conditional-power (#171) benchmarks above.
+Beyond the 15 benchmark cases authored directly, contributed analytical synthesis on [**#183**](https://github.com/RConsortium/pharma-skills/issues/183) (`clinical-trial-ipd-sim` feedback cluster, #179-184, authored by lengning), identifying a shared root cause across three separate issues, AE onset timing (#182), visit timing (#183), and discontinuation timing, all stemming from the same architectural pattern: the forward simulation evaluates state only at discrete visit timepoints when the underlying clinical process is continuous-time. Proposed a single shared spec pattern (continuous-time event sampling within visit windows) rather than three separate fixes, connecting it to the same discrete-grid-vs-continuous-time tension seen in the ADTTE (#166) and conditional-power (#171) benchmarks above.
 
 ## Upstream submissions
 
