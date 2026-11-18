@@ -193,7 +193,7 @@ Speaker, R/Pharma 2026 (October 20, 2026).
 ## Author
 
 Emmanuel Fle Chea, MPH
-Founder & Solo Developer, Lexify Health | Clinical Data Scientist
+Founder & Sole Developer, Lexify Health | Clinical Data Scientist
 [github.com/efchea1](https://github.com/efchea1) · [lexify.health](https://lexify.health) · LinkedIn
 
 ## License
